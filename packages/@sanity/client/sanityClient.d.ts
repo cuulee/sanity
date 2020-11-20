@@ -1517,8 +1517,6 @@ export interface SanityClient {
     ): T extends 'me' ? Promise<CurrentSanityUser> : Promise<SanityUser>
   }
 
-  request: (option: any) => any
-
   auth: {
     /**
      * Fetch available login providers

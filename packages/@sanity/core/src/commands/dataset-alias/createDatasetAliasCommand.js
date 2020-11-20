@@ -29,7 +29,7 @@ export default {
 
     const [datasets, aliases, projectFeatures] = await Promise.all([
       client.datasets.list().then(sets => sets.map(ds => ds.name)),
-      aliasClient.list(client).then(sets => sets.map(ds => ds.name)),
+      aliasClient.listAliases(client).then(sets => sets.map(ds => ds.name)),
       client.request({uri: '/features'})
     ])
 
@@ -56,7 +56,7 @@ export default {
     }
 
     try {
-      await aliasClient.create(client, aliasName, {datasetName})
+      await aliasClient.createAlias(client, aliasName, datasetName)
       output.print(
         `Dataset alias ${aliasName} created ${datasetName &&
           `and linked to ${datasetName}`} successfully`

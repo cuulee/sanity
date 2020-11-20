@@ -25,7 +25,7 @@ export default {
     }
 
     const [aliases] = await Promise.all([
-      aliasClient.list(client).then(sets => sets.map(ds => ds.name))
+      aliasClient.listAliases(client).then(sets => sets.map(ds => ds.name))
     ])
 
     const aliasName = await (alias || promptForDatasetAliasName(prompt))
@@ -34,7 +34,7 @@ export default {
     }
 
     try {
-      const result = await aliasClient.unlink(client, aliasName)
+      const result = await aliasClient.unlinkAlias(client, aliasName)
       output.print(`Dataset alias ${aliasName} unlinked from ${result.datasetName} successfully`)
     } catch (err) {
       throw new Error(`Dataset alias link failed:\n${err.message}`)

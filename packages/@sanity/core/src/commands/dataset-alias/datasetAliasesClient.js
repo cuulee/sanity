@@ -1,32 +1,32 @@
-const validateAlias = require('../../actions/dataset-alias/validateDatasetAliasName')
+import validateAlias from '../../actions/dataset-alias/validateDatasetAliasName'
 
-function list(client) {
+function listAliases(client) {
   return client.request({uri: '/aliases'})
 }
 
-function create(client, name, options) {
-  return modify(client, 'PUT', name, options)
+function createAlias(client, name, datasetName) {
+  return modify(client, 'PUT', name, datasetName ? {datasetName} : null)
 }
 
 function modify(client, method, name, body) {
   return client.request({method, uri: `/aliases/${name}`, body})
 }
 
-function update(client, name, options) {
-  return modify(client, 'PATCH', name, options)
+function updateAlias(client, name, datasetName) {
+  return modify(client, 'PATCH', name, datasetName ? {datasetName} : null)
 }
 
-function unlink(client, name) {
+function unlinkAlias(client, name) {
   validateAlias(name)
   return modify(client, 'PATCH', `${name}/unlink`, {}, true)
 }
 
-function remove(client, name) {
+function removeAlias(client, name) {
   return modify(client, 'DELETE', name)
 }
 
-exports.list = list
-exports.create = create
-exports.unlink = unlink
-exports.update = update
-exports.remove = remove
+exports.listAliases = listAliases
+exports.createAlias = createAlias
+exports.unlinkAlias = unlinkAlias
+exports.updateAlias = updateAlias
+exports.removeAlias = removeAlias

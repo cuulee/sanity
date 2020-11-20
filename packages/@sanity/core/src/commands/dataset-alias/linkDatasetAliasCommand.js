@@ -29,7 +29,7 @@ export default {
 
     const [datasets, aliases] = await Promise.all([
       client.datasets.list().then(sets => sets.map(ds => ds.name)),
-      aliasClient.list(client).then(sets => sets.map(ds => ds.name))
+      aliasClient.listAliases(client).then(sets => sets.map(ds => ds.name))
     ])
 
     const aliasName = await (alias || promptForDatasetAliasName(prompt))
@@ -48,7 +48,7 @@ export default {
     }
 
     try {
-      await aliasClient.update(client, aliasName, {datasetName})
+      await aliasClient.updateAlias(client, aliasName, datasetName)
       output.print(`Dataset alias ${aliasName} linked to ${datasetName} successfully`)
     } catch (err) {
       throw new Error(`Dataset alias link failed:\n${err.message}`)

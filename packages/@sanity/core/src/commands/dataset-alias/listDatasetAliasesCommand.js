@@ -21,7 +21,7 @@ export default {
       throw new Error(`Can't sort by field "${sort}". Must be one of ${sortFields.join(', ')}`)
     }
 
-    const aliases = await aliasClient.list(client)
+    const aliases = await aliasClient.listAliases(client)
 
     const ordered = sortBy(
       aliases.map(({name, datasetName}) => {

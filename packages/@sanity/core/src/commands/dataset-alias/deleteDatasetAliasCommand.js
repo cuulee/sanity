@@ -35,7 +35,7 @@ export default {
       }
     })
 
-    return aliasClient.remove(client, alias).then(() => {
+    return aliasClient.removeAlias(client, alias).then(() => {
       output.print('Dataset alias deleted successfully')
     })
   }
